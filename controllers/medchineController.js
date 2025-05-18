@@ -114,6 +114,38 @@ const searchMedicineByOCR = async (req, res) => {
   }
 }
 
+const searchMedicinesByTextOrSymptoms = async (req, res) => {
+  try {
+    const { query } = req.query
+
+    if (!query) {
+      return res.status(400).json({ success: false, message: "Search query is required" })
+    }
+
+    const regex = new RegExp(query, "i")
+
+    const results = await medicineModel.find({
+      $or: [
+        { name: regex },
+        { brand: regex },
+        { description: regex },
+        { category: regex },
+        { symptoms: regex }
+      ]
+    })
+
+    if (!results.length) {
+      return res.status(404).json({ success: false, message: "No matching medicines found" })
+    }
+
+    res.status(200).json({ success: true, data: results })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+}
 
 
-export { addMedicine,updateMedicine, deleteMedicine, viewAllMedicines, searchMedicineByOCR  }
+
+
+export { addMedicine,updateMedicine, deleteMedicine, viewAllMedicines, searchMedicineByOCR, searchMedicinesByTextOrSymptoms  }

@@ -21,4 +21,6 @@ router.delete("/delete-medicine/:id", authAdmin, deleteMedicine)
 router.get("/view-all-medicines", viewAllMedicines)
 router.get("/search-medicine", searchMedicineByOCR)
 
+router.get("/search", searchMedicinesByTextOrSymptoms)
+
 export default router
