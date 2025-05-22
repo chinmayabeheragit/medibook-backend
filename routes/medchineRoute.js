@@ -5,7 +5,8 @@ import {
   updateMedicine,
   deleteMedicine,
   viewAllMedicines,
-  searchMedicineByOCR
+  searchMedicineByOCR,
+  searchMedicinesByTextOrSymptoms
 } from "../controllers/medchineController.js"
 import authAdmin from "../middleware/authAdmin.js"
 

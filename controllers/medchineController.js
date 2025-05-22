@@ -1,4 +1,4 @@
-import medicineModel from "../models/medchineModel"
+import medicineModel from "../models/medicineModel.js"
 import cloudinary from "cloudinary"
 import fs from "fs"
 
