@@ -1,16 +1,27 @@
-import express from 'express';
-import { loginAdmin, appointmentsAdmin, appointmentCancel, addDoctor, allDoctors, adminDashboard } from '../controllers/adminController.js';
-import { changeAvailablity } from '../controllers/doctorController.js';
-import authAdmin from '../middleware/authAdmin.js';
-import upload from '../middleware/multer.js';
-const adminRouter = express.Router();
+import express from "express";
+import upload from "../middlewares/multer.js";
+import authAdmin from "../middlewares/authAdmin.js";
+import {
+  loginAdmin,
+  addDoctor,
+  getAllDoctors,
+  getAllAppointments,
+  cancelAppointment,
+  getAdminDashboard,
+  toggleDoctorAvailability,
+} from "../controllers/admin.controller.js";
 
-adminRouter.post("/login", loginAdmin)
-adminRouter.post("/add-doctor", authAdmin, upload.single('image'), addDoctor)
-adminRouter.get("/appointments", authAdmin, appointmentsAdmin)
-adminRouter.post("/cancel-appointment", authAdmin, appointmentCancel)
-adminRouter.get("/all-doctors", authAdmin, allDoctors)
-adminRouter.post("/change-availability", authAdmin, changeAvailablity)
-adminRouter.get("/dashboard", authAdmin, adminDashboard)
+const router = express.Router();
 
-export default adminRouter;
+// Public
+router.post("/login", loginAdmin);
+
+// Protected
+router.post("/doctors",                         authAdmin, upload.single("image"), addDoctor);
+router.get("/doctors",                          authAdmin, getAllDoctors);
+router.put("/doctors/:id/availability",         authAdmin, toggleDoctorAvailability);
+router.get("/appointments",                     authAdmin, getAllAppointments); // ?status=pending
+router.put("/appointments/:id/cancel",          authAdmin, cancelAppointment);
+router.get("/dashboard",                        authAdmin, getAdminDashboard);
+
+export default router;

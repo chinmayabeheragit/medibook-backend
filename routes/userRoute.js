@@ -1,20 +1,27 @@
-import express from 'express';
-import { loginUser, registerUser, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment, paymentRazorpay, verifyRazorpay, paymentStripe, verifyStripe } from '../controllers/userController.js';
-import upload from '../middleware/multer.js';
-import authUser from '../middleware/authUser.js';
-const userRouter = express.Router();
+import express from "express";
+import upload from "../middlewares/multer.js";
+import authUser from "../middlewares/authUser.js";
+import {
+  registerUser,
+  loginUser,
+  getProfile,
+  updateProfile,
+  bookAppointment,
+  getMyAppointments,
+  cancelAppointment,
+} from "../controllers/user.controller.js";
 
-userRouter.post("/register", registerUser)
-userRouter.post("/login", loginUser)
+const router = express.Router();
 
-userRouter.get("/get-profile", authUser, getProfile)
-userRouter.post("/update-profile", upload.single('image'), authUser, updateProfile)
-userRouter.post("/book-appointment", authUser, bookAppointment)
-userRouter.get("/appointments", authUser, listAppointment)
-userRouter.post("/cancel-appointment", authUser, cancelAppointment)
-userRouter.post("/payment-razorpay", authUser, paymentRazorpay)
-userRouter.post("/verifyRazorpay", authUser, verifyRazorpay)
-userRouter.post("/payment-stripe", authUser, paymentStripe)
-userRouter.post("/verifyStripe", authUser, verifyStripe)
+// Public
+router.post("/register", registerUser);
+router.post("/login",    loginUser);
 
-export default userRouter;
+// Protected
+router.get("/profile",                    authUser, getProfile);
+router.put("/profile",                    authUser, upload.single("image"), updateProfile);
+router.post("/appointments/book",         authUser, bookAppointment);
+router.get("/appointments",               authUser, getMyAppointments);
+router.put("/appointments/:id/cancel",    authUser, cancelAppointment);
+
+export default router;

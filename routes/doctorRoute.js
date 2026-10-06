@@ -1,16 +1,30 @@
-import express from 'express';
-import { loginDoctor, appointmentsDoctor, appointmentCancel, doctorList, changeAvailablity, appointmentComplete, doctorDashboard, doctorProfile, updateDoctorProfile } from '../controllers/doctorController.js';
-import authDoctor from '../middleware/authDoctor.js';
-const doctorRouter = express.Router();
+import express from "express";
+import authDoctor from "../middlewares/authDoctor.js";
+import {
+  loginDoctor,
+  getDoctorProfile,
+  updateDoctorProfile,
+  getDoctorAppointments,
+  cancelAppointment,
+  completeAppointment,
+  getDoctorDashboard,
+  getDoctorList,
+  toggleAvailability,
+} from "../controllers/doctor.controller.js";
 
-doctorRouter.post("/login", loginDoctor)
-doctorRouter.post("/cancel-appointment", authDoctor, appointmentCancel)
-doctorRouter.get("/appointments", authDoctor, appointmentsDoctor)
-doctorRouter.get("/list", doctorList)
-doctorRouter.post("/change-availability", authDoctor, changeAvailablity)
-doctorRouter.post("/complete-appointment", authDoctor, appointmentComplete)
-doctorRouter.get("/dashboard", authDoctor, doctorDashboard)
-doctorRouter.get("/profile", authDoctor, doctorProfile)
-doctorRouter.post("/update-profile", authDoctor, updateDoctorProfile)
+const router = express.Router();
 
-export default doctorRouter;
+// Public
+router.post("/login", loginDoctor);
+router.get("/list",   getDoctorList); // ?speciality=Cardiologist
+
+// Protected
+router.get("/profile",                      authDoctor, getDoctorProfile);
+router.put("/profile",                      authDoctor, updateDoctorProfile);
+router.get("/appointments",                 authDoctor, getDoctorAppointments);
+router.put("/appointments/:id/cancel",      authDoctor, cancelAppointment);
+router.put("/appointments/:id/complete",    authDoctor, completeAppointment);
+router.get("/dashboard",                    authDoctor, getDoctorDashboard);
+router.put("/availability",                 authDoctor, toggleAvailability);
+
+export default router;
