@@ -10,7 +10,7 @@ import {
   getDoctorDashboard,
   getDoctorList,
   toggleAvailability,
-} from "../controllers/doctor.controller.js";
+} from "../controllers/doctorController.js";
 
 const router = express.Router();
 

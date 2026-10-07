@@ -1,4 +1,4 @@
-import appointmentModel from "../models/appointment.model.js";
+import appointmentModel from "../models/appointmentModel.js";
 
 const appointmentRepository = {
   create: (data) =>

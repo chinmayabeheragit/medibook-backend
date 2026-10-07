@@ -1,4 +1,4 @@
-import doctorModel from "../models/doctor.model.js";
+import doctorModel from "../models/doctorModel.js";
 
 const doctorRepository = {
   findByEmail: (email) =>

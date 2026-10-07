@@ -1,4 +1,4 @@
-import userModel from "../models/user.model.js";
+import userModel from "../models/userModel.js";
 
 // All MongoDB queries for users live here
 // Services never touch userModel directly

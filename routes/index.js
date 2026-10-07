@@ -1,7 +1,7 @@
 import express from "express";
-import userRoutes from "./user.routes.js";
-import doctorRoutes from "./doctor.routes.js";
-import adminRoutes from "./admin.routes.js";
+import userRoutes from "../routes/userRoute.js";
+import doctorRoutes from "../routes/doctorRoute.js";
+import adminRoutes from "../routes/adminRoute.js";
 
 const router = express.Router();
 

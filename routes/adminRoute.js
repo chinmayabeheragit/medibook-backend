@@ -9,7 +9,7 @@ import {
   cancelAppointment,
   getAdminDashboard,
   toggleDoctorAvailability,
-} from "../controllers/admin.controller.js";
+} from "../controllers/adminController.js";
 
 const router = express.Router();
 
