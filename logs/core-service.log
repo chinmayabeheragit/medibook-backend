@@ -1,0 +1,4 @@
+{"level":30,"time":1791443629020,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1791443629022,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1791443629038,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1791443629040,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
