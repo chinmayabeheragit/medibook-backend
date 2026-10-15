@@ -4,20 +4,21 @@ import logger from "../utils/logger.js";
 const MAX_RETRIES = 5;
 const RETRY_DELAY_MS = 3000;
 
+// Register once — outside the retry function
+mongoose.connection.on("connected", () => {
+  logger.info({ db: mongoose.connection.name }, "[Core Service] MongoDB connected");
+});
+
+mongoose.connection.on("error", (err) => {
+  logger.error({ err }, "[Core Service] MongoDB connection error");
+});
+
+mongoose.connection.on("disconnected", () => {
+  logger.warn("[Core Service] MongoDB disconnected");
+});
+
 const connectDB = async (retryCount = 0) => {
   try {
-    mongoose.connection.on("connected", () => {
-      logger.info({ db: mongoose.connection.name }, "[Core Service] MongoDB connected");
-    });
-
-    mongoose.connection.on("error", (err) => {
-      logger.error({ err }, "[Core Service] MongoDB connection error");
-    });
-
-    mongoose.connection.on("disconnected", () => {
-      logger.warn("[Core Service] MongoDB disconnected");
-    });
-
     await mongoose.connect(process.env.MONGODB_URI, {
       maxPoolSize: 10,
       minPoolSize: 2,
