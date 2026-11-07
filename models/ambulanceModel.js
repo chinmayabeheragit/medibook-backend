@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+
+
 const ambulanceRequestSchema = new mongoose.Schema(
     {
         userId: {
