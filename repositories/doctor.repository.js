@@ -15,7 +15,6 @@ const doctorRepository = {
 
   updateById: (id, updates) =>
     doctorModel.findByIdAndUpdate(id, updates, { new: true }).select("-password"),
-
   updateSlot: (id, update, arrayFilters) =>
     doctorModel.findByIdAndUpdate(id, update, { new: true, arrayFilters }).select("-password"),
 
