@@ -5,7 +5,6 @@ import AppError from "../utils/AppError.js";
 
 const appointmentService = {
   book: async ({ userId, doctorId, slotDate, slotTime, idempotencyKey }) => {
-    // Idempotency check — same request sent twice returns original result
     if (idempotencyKey) {
       const existing = await appointmentRepository.findByIdempotencyKey(idempotencyKey);
       if (existing) return existing;
@@ -15,20 +14,14 @@ const appointmentService = {
     if (!doctor) throw new AppError("Doctor not found", 404);
     if (!doctor.available) throw new AppError("Doctor is not available", 400);
 
-    // Check if slot is already booked
     const slotTaken = doctor.slots.some(
       (s) => s.date === slotDate && s.time === slotTime && s.isBooked
     );
     if (slotTaken) throw new AppError("Slot not available", 400);
 
-    // Mark slot as booked
-    await doctorRepository.updateById(doctorId, {
-      $set: {
-        "slots.$[slot].isBooked": true,
-      },
-    }, {
-      arrayFilters: [{ "slot.date": slotDate, "slot.time": slotTime }],
-    });
+    await doctorRepository.updateSlot(doctorId, {
+      $set: { "slots.$[slot].isBooked": true },
+    }, [{ "slot.date": slotDate, "slot.time": slotTime }]);
 
     const appointment = await appointmentRepository.create({
       userId,
@@ -40,8 +33,6 @@ const appointmentService = {
       idempotencyKey,
     });
 
-    // Publish to RabbitMQ — Notification Service will send confirmation
-    // Wrapped in try/catch inside publisher — never blocks booking response
     await publishAppointmentBooked(appointment);
 
     return appointment;
@@ -58,14 +49,9 @@ const appointmentService = {
       throw new AppError(`Cannot cancel a ${appointment.status} appointment`, 400);
     }
 
-    // Free up the slot
-    await doctorRepository.updateById(appointment.doctorId, {
+    await doctorRepository.updateSlot(appointment.doctorId, {
       $set: { "slots.$[slot].isBooked": false },
-    }, {
-      arrayFilters: [
-        { "slot.date": appointment.slotDate, "slot.time": appointment.slotTime }
-      ],
-    });
+    }, [{ "slot.date": appointment.slotDate, "slot.time": appointment.slotTime }]);
 
     const updated = await appointmentRepository.updateById(appointmentId, {
       status: "cancelled",
