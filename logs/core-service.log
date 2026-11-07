@@ -55,3 +55,7 @@
 {"level":30,"time":1794079814434,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
 {"level":30,"time":1794079814738,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
 {"level":30,"time":1794079814740,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794079827142,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794079827143,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794079827414,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794079827416,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
