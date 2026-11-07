@@ -49,16 +49,12 @@ const appointmentSchema = new mongoose.Schema(
     },
     idempotencyKey: {
       type: String,
-      unique: true,
       sparse: true, // only enforces uniqueness on non-null values
     },
     cancelledAt:  { type: Date, default: null },
     completedAt:  { type: Date, default: null },
     cancelReason: { type: String, default: "" },
-    // NOTE: userData and docData removed entirely
-    // Use .populate("userId", "name email phone")
-    // and .populate("doctorId", "name speciality fees image")
-    // This means doctor/user updates reflect in all appointments automatically
+
   },
   {
     timestamps: true, // createdAt = booking time
@@ -69,7 +65,7 @@ const appointmentSchema = new mongoose.Schema(
 appointmentSchema.index({ userId: 1, createdAt: -1 });   // user's appointment history
 appointmentSchema.index({ doctorId: 1, slotDate: 1 });   // doctor's schedule by date
 appointmentSchema.index({ status: 1 });                   // filter by status
-appointmentSchema.index({ idempotencyKey: 1 });           // fast idempotency check
+appointmentSchema.index({ idempotencyKey: 1 }, { unique: true, sparse: true });         // fast idempotency check
 
 const appointmentModel =
   mongoose.models.appointment ||
