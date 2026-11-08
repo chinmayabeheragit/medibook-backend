@@ -150,3 +150,8 @@
 {"level":50,"time":1794118323987,"service":"medibook-core-service","env":"development","err":{"type":"Error","message":"D42C0000:error:0A00010B:SSL routines:ssl3_get_record:wrong version number:c:\\ws\\deps\\openssl\\openssl\\ssl\\record\\ssl3_record.c:355:\n","stack":"Error: D42C0000:error:0A00010B:SSL routines:ssl3_get_record:wrong version number:c:\\ws\\deps\\openssl\\openssl\\ssl\\record\\ssl3_record.c:355:\n","library":"SSL routines","reason":"wrong version number","code":"ERR_SSL_WRONG_VERSION_NUMBER"},"msg":"Redis error"}
 {"level":50,"time":1794118323988,"service":"medibook-core-service","env":"development","msg":"Redis: max retries reached, giving up"}
 {"level":40,"time":1794118323988,"service":"medibook-core-service","env":"development","msg":"Redis connection closed"}
+{"level":30,"time":1794118365351,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794118365354,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794118365634,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794118365685,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794118365734,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
