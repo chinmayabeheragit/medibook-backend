@@ -2,6 +2,12 @@ import doctorRepository from "../repositories/doctor.repository.js";
 import appointmentRepository from "../repositories/appointment.repository.js";
 import { publishAppointmentBooked, publishAppointmentCancelled } from "../events/publishers/appointment.publisher.js";
 import AppError from "../utils/AppError.js";
+import cache from "../utils/cache.js";
+
+const CACHE_KEYS = {
+  doctorList: (speciality) => `doctors:list:${speciality || "all"}`,
+  doctorProfile: (id) => `doctors:profile:${id}`,
+};
 
 const appointmentService = {
   book: async ({ userId, doctorId, slotDate, slotTime, idempotencyKey }) => {
@@ -33,6 +39,13 @@ const appointmentService = {
       idempotencyKey,
     });
 
+    // Slot is now booked — cached doctor profile/list has stale slot data
+    await cache.del(
+      CACHE_KEYS.doctorProfile(doctorId),
+      CACHE_KEYS.doctorList(),
+      CACHE_KEYS.doctorList(doctor.speciality)
+    );
+
     await publishAppointmentBooked(appointment);
 
     return appointment;
@@ -49,6 +62,9 @@ const appointmentService = {
       throw new AppError(`Cannot cancel a ${appointment.status} appointment`, 400);
     }
 
+    // Fetch doctor before freeing slot (need speciality for cache key)
+    const doctor = await doctorRepository.findById(appointment.doctorId);
+
     await doctorRepository.updateSlot(appointment.doctorId, {
       $set: { "slots.$[slot].isBooked": false },
     }, [{ "slot.date": appointment.slotDate, "slot.time": appointment.slotTime }]);
@@ -58,6 +74,13 @@ const appointmentService = {
       cancelledAt: new Date(),
       cancelReason,
     });
+
+    // Slot is now free — invalidate so list reflects updated availability
+    await cache.del(
+      CACHE_KEYS.doctorProfile(appointment.doctorId),
+      CACHE_KEYS.doctorList(),
+      CACHE_KEYS.doctorList(doctor?.speciality)
+    );
 
     await publishAppointmentCancelled(updated);
     return updated;

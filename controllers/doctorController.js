@@ -47,8 +47,7 @@ export const getDoctorDashboard = asyncHandler(async (req, res) => {
 // GET /api/doctors/list  [public]
 export const getDoctorList = asyncHandler(async (req, res) => {
   const { speciality } = req.query;
-  const filters = speciality ? { speciality } : {};
-  const doctors = await doctorService.getAllDoctors(filters);
+  const doctors = await doctorService.getAllDoctors(speciality); // pass string, not object
   apiResponse.success(res, doctors);
 });
 
