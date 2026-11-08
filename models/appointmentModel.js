@@ -49,7 +49,7 @@ const appointmentSchema = new mongoose.Schema(
     },
     idempotencyKey: {
       type: String,
-      sparse: true, // only enforces uniqueness on non-null values
+      // sparse: true, // only enforces uniqueness on non-null values
     },
     cancelledAt: { type: Date, default: null },
     completedAt: { type: Date, default: null },
@@ -65,8 +65,8 @@ const appointmentSchema = new mongoose.Schema(
 appointmentSchema.index({ userId: 1, createdAt: -1 });   // user's appointment history
 appointmentSchema.index({ doctorId: 1, slotDate: 1 });   // doctor's schedule by date
 appointmentSchema.index({ status: 1 });                   // filter by status
-appointmentSchema.index({ idempotencyKey: 1 }, { unique: true, sparse: true });         // fast idempotency check
-
+// Index at bottom — sparse only here
+appointmentSchema.index({ idempotencyKey: 1 }, { unique: true, sparse: true });
 const appointmentModel =
   mongoose.models.appointment ||
   mongoose.model("appointment", appointmentSchema);
