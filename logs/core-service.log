@@ -369,3 +369,14 @@
 {"level":30,"time":1794211397144,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
 {"level":30,"time":1794211397199,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
 {"level":30,"time":1794211397261,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794211458050,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794211458054,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794211458335,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794211458393,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794211458454,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794211469421,"service":"medibook-core-service","env":"development","appointmentId":"6af17e8db9280b92c23c47b7","msg":"Published appointment.booked"}
+{"level":30,"time":1794211469427,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:08:04:29 +0000] \"POST /api/users/appointments/book HTTP/1.1\" 201 446 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211485130,"service":"medibook-core-service","env":"development","appointmentId":"6af17e9cb9280b92c23c47bd","msg":"Published appointment.booked"}
+{"level":30,"time":1794211485132,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:08:04:45 +0000] \"POST /api/users/appointments/book HTTP/1.1\" 201 446 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211797753,"service":"medibook-core-service","env":"development","appointmentId":"6af17fd5b9280b92c23c47c3","msg":"Published appointment.booked"}
+{"level":30,"time":1794211797761,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:08:09:57 +0000] \"POST /api/users/appointments/book HTTP/1.1\" 201 446 \"-\" \"PostmanRuntime/2.15.0\""}
