@@ -308,3 +308,64 @@
 {"level":30,"time":1794165481921,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
 {"level":30,"time":1794165481974,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
 {"level":30,"time":1794165482033,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794204359589,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794204359591,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794204360263,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794204360322,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794204360407,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794204474176,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794204474177,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794204474461,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794204474514,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794204474586,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794204642395,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794204642398,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794204642711,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794204642767,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794204642825,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794210613992,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794210613993,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794210614310,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794210614365,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794210614452,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794210759705,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794210759707,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794210760133,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794210760185,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794210760360,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794210828284,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794210828286,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794210828568,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794210828625,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794210828683,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794210834232,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794210834234,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794210834491,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794210834543,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794210834601,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794210941063,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:07:55:41 +0000] \"POST /api/users/login HTTP/1.1\" 200 357 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794210997446,"service":"medibook-core-service","env":"development","email":"stark@gmail.com","msg":"Admin login attempt"}
+{"level":30,"time":1794210997449,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:07:56:37 +0000] \"POST /api/admin/login HTTP/1.1\" 200 248 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211009445,"service":"medibook-core-service","env":"development","msg":"getAllDoctors called"}
+{"level":30,"time":1794211009485,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:07:56:49 +0000] \"GET /api/admin/doctors HTTP/1.1\" 200 1196 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211066466,"service":"medibook-core-service","env":"development","appointmentId":"6af17cfae39f866c86cecbac","msg":"Published appointment.booked"}
+{"level":30,"time":1794211066467,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:07:57:46 +0000] \"POST /api/users/appointments/book HTTP/1.1\" 201 446 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211086048,"service":"medibook-core-service","env":"development","appointmentId":"6af17d0de39f866c86cecbb2","msg":"Published appointment.booked"}
+{"level":30,"time":1794211086050,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:07:58:06 +0000] \"POST /api/users/appointments/book HTTP/1.1\" 201 446 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211138190,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794211138192,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794211138477,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794211138532,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794211138598,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794211158084,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794211158086,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794211158349,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794211158408,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794211158467,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1794211170116,"service":"medibook-core-service","env":"development","appointmentId":"6af17d62ea936160cc4721b2","msg":"Published appointment.booked"}
+{"level":30,"time":1794211170121,"service":"medibook-core-service","env":"development","msg":"::1 - - [09/Nov/2026:07:59:30 +0000] \"POST /api/users/appointments/book HTTP/1.1\" 201 446 \"-\" \"PostmanRuntime/2.15.0\""}
+{"level":30,"time":1794211396862,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1794211396864,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1794211397144,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1794211397199,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1794211397261,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
