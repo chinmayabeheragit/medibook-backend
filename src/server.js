@@ -4,6 +4,7 @@ import connectDB from "../config/mongodb.js";
 import connectCloudinary from "../config/cloudinary.js";
 import connectRabbitMQ from "../config/rabbitmq.js";
 import { connectRedis } from "../config/redis.js";
+import { connectOcrService } from "../config/grpc.js";
 import logger from "../utils/logger.js";
 
 const PORT = process.env.PORT || 5002;
@@ -13,7 +14,8 @@ const startServer = async () => {
     await connectDB();
     connectCloudinary();
     await connectRabbitMQ();
-    await connectRedis();          // ← added
+    await connectRedis();
+    connectOcrService();
 
     app.listen(PORT, () => {
       logger.info(`[Core Service] Running on PORT: ${PORT}`);
