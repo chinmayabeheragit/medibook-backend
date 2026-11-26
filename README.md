@@ -1,206 +1,268 @@
-https://medibook-zu97.vercel.app/
+# MediBook Core Service
 
+MediBook Core Service is the backend for users, doctors, administrators, and appointments. It also exposes a prescription-image OCR endpoint that communicates with an external OCR service over gRPC.
 
-# 🧠 Medicine AI & Intelligence Service
+## Implemented Features
 
-## Overview
-Advanced AI-powered microservice for medicine recognition, prescription analysis, drug interaction checking, and intelligent recommendations.
+### Users
+- Register and log in
+- View and update profiles
+- Upload profile images to Cloudinary
+- Book, view, and cancel appointments
+- Scan prescriptions through the OCR service
 
-## Features
+### Doctors
+- Log in
+- View and update profiles
+- Toggle availability
+- View appointments
+- Cancel or complete appointments
+- View dashboard earnings and appointment statistics
+- Browse public doctor listings
 
-### 1. 📸 **Advanced OCR & Image Recognition**
-- Handwritten prescription OCR (90%+ accuracy)
-- Printed prescription extraction
-- Pill identification from photos (shape, color, imprint)
-- Medicine packaging recognition
-- Expiry date extraction
-- Batch number extraction
+### Administrators
+- Log in
+- Add and list doctors
+- Toggle doctor availability
+- View and cancel appointments
+- View dashboard statistics
 
-### 2. 🤖 **AI-Powered Intelligence**
-- Drug interaction checking (multiple medicines)
-- Alternative medicine suggestions (generic equivalents)
-- Symptom-to-medicine recommendations
-- Dosage validation and correction
-- Prescription fraud detection
-- Medicine recall alerts
+### Appointment System
+- Structured doctor slots by date and time
+- Appointment confirmation and cancellation
+- Completed, cancelled, and confirmed appointment states
+- Idempotency-key support for duplicate booking requests
+- Appointment booked/cancelled events published to RabbitMQ
+- Redis caching for doctor profiles and lists
 
-### 3. 🔍 **Smart Search**
-- Multi-modal search (text, image, symptoms)
-- Fuzzy matching for medicine names
-- Search by composition/salt name
-- Search by manufacturer
+### OCR
+- Accepts JPEG, PNG, or WebP prescription images
+- Sends image bytes and MIME type to an OCR gRPC service
+- Returns raw extracted text and detected medicines
 
-### 4. ⚡ **Performance**
-- Redis caching for frequent queries
-- Kafka for async processing
-- Sub-second response times
-- Rate limiting by user tier
+### Additional Mongoose Models
+The project also contains models for:
+- Ambulance requests
+- Hospital beds
+- Blood donors
+- Blood requests
+- Lab tests
+
+These models are currently infrastructure/data models only. They do not yet have implemented API routes or business services.
 
 ## Tech Stack
 
-- **Runtime**: Node.js 18+
-- **Framework**: Express.js
-- **OCR**: Google Vision API + Tesseract.js
-- **AI/ML**: TensorFlow.js, OpenAI GPT-4, Google Gemini
-- **Image Processing**: Sharp, Jimp
-- **Database**: MongoDB (medicine catalog), PostgreSQL (interactions data)
-- **Cache**: Redis (search results, OCR cache)
-- **Message Queue**: Kafka (async processing)
-- **API Gateway**: Kong
-- **Monitoring**: Prometheus, Grafana
-- **Logging**: Winston, ELK Stack
+- Node.js 18+
+- Express.js
+- MongoDB and Mongoose
+- Redis with ioredis
+- RabbitMQ with amqplib
+- Cloudinary
+- gRPC
+- JWT
+- bcrypt
+- Multer
+- Helmet
+- CORS
+- Morgan
+- Pino
+- Jest and Supertest dependencies
 
-## Architecture
+## Project Structure
 
-```
-API Gateway (Kong)
-    ↓
-Medicine AI Service
-    ├── OCR Engine (Google Vision + Tesseract)
-    ├── Pill Recognition (TensorFlow.js)
-    ├── NLP Engine (GPT-4/Gemini)
-    ├── Drug Interaction DB
-    ├── Redis Cache
-    └── Kafka Producer
-```
-
-
-//structure
+```text
 medibook-backend/
-│
-├── node_modules/
-│
 ├── config/
-│   ├── mongodb.js
-│   ├── redis.js
-│   ├── kafka.js
 │   ├── cloudinary.js
-│   └── index.js
-│
+│   ├── grpc.js
+│   ├── mongodb.js
+│   ├── rabbitmq.js
+│   └── redis.js
+├── constants/
 ├── controllers/
-│   ├── users/
-│   ├── doctors/
-│   ├── medicines/
-│   ├── orders/
-│   └── ai/
-│       ├── ocrController.js
-│       ├── pillController.js
-│       └── interactionController.js
-│
-├── services/
-│   ├── users/
-│   ├── doctors/
-│   ├── medicines/
-│   ├── orders/
-│   └── ai/
-│       ├── ocr.service.js
-│       ├── pill.service.js
-│       ├── interaction.service.js
-│       └── nlp.service.js
-│
-├── models/
-│   ├── user.model.js
-│   ├── doctor.model.js
-│   ├── medicine.model.js
-│   └── order.model.js
-│
-├── routes/
-│   ├── user.routes.js
-│   ├── doctor.routes.js
-│   ├── medicine.routes.js
-│   ├── ai.routes.js
-│   └── index.js
-│
+├── events/publishers/
 ├── middlewares/
-│   ├── authUser.js
-│   ├── authDoctor.js
-│   ├── authAdmin.js
-│   └── multer.js
-│
-├── libs/                 ← reusable infrastructure logic
-│   ├── logger.js
-│   ├── openai.js
-│   ├── gemini.js
-│   ├── googleVision.js
-│   ├── tfjs.js
-│   └── redisClient.js
-│
-├── queues/
-│   ├── producers/
-│   └── consumers/
-│
-├── uploads/
-│
-├── app.js
-├── server.js
+├── models/
+├── proto/
+│   └── ocr.proto
+├── repositories/
+├── routes/
+├── services/
+├── src/
+│   ├── app.js
+│   └── server.js
+├── utils/
 ├── package.json
-├── package-lock.json
-├── README.md
-└── .env
-
-
-
+└── README.md
+```
 
 ## Installation
 
 ```bash
 npm install
-cp .env.example .env
-# Configure your environment variables
 npm run dev
 ```
+
+For a production start:
+
+```bash
+npm start
+```
+
+Create a local `.env` file and configure the variables listed below.
 
 ## Environment Variables
 
 ```env
-PORT=5001
-MONGODB_URI=mongodb://localhost:27017/medicine-ai
-REDIS_URL=redis://localhost:6379
-KAFKA_BROKERS=localhost:9092
+PORT=5002
+NODE_ENV=development
+LOG_LEVEL=info
 
-# AI/ML APIs
-GOOGLE_VISION_API_KEY=your_key
-OPENAI_API_KEY=your_key
-GOOGLE_GEMINI_API_KEY=your_key
+MONGODB_URI=mongodb://localhost:27017/medibook
 
-# External Services
-MEDICINE_CATALOG_SERVICE_URL=http://localhost:5002
-FDA_API_KEY=your_key
+JWT_SECRET=replace-with-a-long-random-secret
+
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=replace-with-a-secure-password
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=
+
+RABBITMQ_URL=amqp://localhost
+
+OCR_SERVICE_URL=localhost:50051
+
+CLOUDINARY_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-cloudinary-api-key
+CLOUDINARY_SECRET_KEY=your-cloudinary-api-secret
+
+ALLOWED_ORIGINS=http://localhost:3000
 ```
+
+The server requires MongoDB. RabbitMQ, Redis, Cloudinary, and the OCR gRPC service must be available for their corresponding features.
+
+## API Base URL
+
+All routes are served below:
+
+```text
+/api
+```
+
+The health endpoint is available at:
+
+```text
+GET /health
+```
+
+## Authentication Headers
+
+| Role | Header |
+|---|---|
+| User | `token: <JWT>` |
+| Doctor | `dtoken: <JWT>` |
+| Admin | `atoken: <JWT>` |
+
+Appointment booking also accepts an optional `idempotency-key` header.
 
 ## API Endpoints
 
-### OCR & Recognition
-- `POST /api/v1/medicine-ai/scan-prescription` - OCR from prescription image
-- `POST /api/v1/medicine-ai/identify-pill` - Identify pill from photo
-- `POST /api/v1/medicine-ai/extract-batch-info` - Extract batch & expiry from image
+### Users
 
-### Intelligence
-- `POST /api/v1/medicine-ai/check-interactions` - Check drug interactions
-- `POST /api/v1/medicine-ai/suggest-alternatives` - Get generic alternatives
-- `POST /api/v1/medicine-ai/validate-dosage` - Validate prescription dosage
-- `POST /api/v1/medicine-ai/analyze-prescription` - Full prescription analysis
+| Method | Endpoint | Authentication | Description |
+|---|---|---|---|
+| POST | `/api/users/register` | Public | Register a user |
+| POST | `/api/users/login` | Public | Log in a user |
+| GET | `/api/users/profile` | User | Get the authenticated user's profile |
+| PUT | `/api/users/profile` | User | Update profile; accepts an `image` multipart field |
+| POST | `/api/users/appointments/book` | User | Book an appointment |
+| GET | `/api/users/appointments` | User | List the user's appointments |
+| PUT | `/api/users/appointments/:id/cancel` | User | Cancel an appointment |
+| POST | `/api/users/scan-prescription` | User | Scan a prescription image |
 
-### Search & Recommendations
-- `POST /api/v1/medicine-ai/symptom-search` - Find medicines by symptoms
-- `GET /api/v1/medicine-ai/search` - Smart medicine search
-- `GET /api/v1/medicine-ai/recall-check/:batchNumber` - Check recall status
+The prescription endpoint accepts one multipart file field named `image`. JPEG, PNG, and WebP files are supported with a maximum size of 5 MB.
 
-## Kafka Topics
+### Doctors
 
-- `medicine-recognition-requests` - OCR/Recognition requests
-- `medicine-recognition-results` - Processed results
-- `drug-interaction-alerts` - Critical interaction alerts
-- `prescription-fraud-alerts` - Suspicious prescription alerts
-- `medicine-recall-alerts` - Safety recall notifications
+| Method | Endpoint | Authentication | Description |
+|---|---|---|---|
+| POST | `/api/doctors/login` | Public | Log in a doctor |
+| GET | `/api/doctors/list` | Public | List available doctors; optional `?speciality=Cardiologist` |
+| GET | `/api/doctors/profile` | Doctor | Get the doctor's profile |
+| PUT | `/api/doctors/profile` | Doctor | Update doctor profile settings |
+| GET | `/api/doctors/appointments` | Doctor | List doctor appointments |
+| PUT | `/api/doctors/appointments/:id/cancel` | Doctor | Cancel an appointment |
+| PUT | `/api/doctors/appointments/:id/complete` | Doctor | Complete an appointment |
+| GET | `/api/doctors/dashboard` | Doctor | Get doctor dashboard statistics |
+| PUT | `/api/doctors/availability` | Doctor | Toggle doctor availability |
 
-## Performance Benchmarks
+### Administrators
 
-- OCR Processing: < 3 seconds
-- Pill Recognition: < 2 seconds
-- Drug Interaction Check: < 500ms
-- Symptom Search: < 300ms
-- Cache Hit Rate: 85%+
+| Method | Endpoint | Authentication | Description |
+|---|---|---|---|
+| POST | `/api/admin/login` | Public | Log in the administrator |
+| POST | `/api/admin/doctors` | Admin | Add a doctor; accepts an `image` multipart field |
+| GET | `/api/admin/doctors` | Admin | List doctors |
+| PUT | `/api/admin/doctors/:id/availability` | Admin | Toggle doctor availability |
+| GET | `/api/admin/appointments` | Admin | List appointments; optional `?status=pending` |
+| PUT | `/api/admin/appointments/:id/cancel` | Admin | Cancel an appointment |
+| GET | `/api/admin/dashboard` | Admin | Get dashboard statistics |
+
+## Appointment Data
+
+Appointments use the following statuses:
+
+- `pending`
+- `confirmed`
+- `completed`
+- `cancelled`
+
+Payment states are represented by:
+
+- `unpaid`
+- `paid`
+- `refunded`
+
+## RabbitMQ Events
+
+The `medibook` topic exchange publishes:
+
+- `appointment.booked`
+- `appointment.cancelled`
+
+The application defines `appointment.completed`, but no current service path publishes that event yet.
+
+## OCR gRPC Contract
+
+The prescription endpoint calls `ocr.OcrService.ExtractText`.
+
+Request:
+
+```text
+image: bytes
+mime_type: string
+```
+
+Response:
+
+```text
+raw_text: string
+medicines: repeated string
+success: bool
+error: string
+```
+
+## Current Development Status
+
+- Core user, doctor, admin, and appointment flows are implemented.
+- Redis caching is implemented with graceful cache-disable behavior on failure.
+- RabbitMQ publishing is implemented with graceful event-publishing failure handling.
+- Cloudinary uploads are implemented for profile and doctor images.
+- Prescription OCR is implemented as a gRPC client.
+- The ambulance, bed, blood donor/request, and lab test Mongoose models exist, but public APIs and services are not implemented.
+- Automated tests are not yet present in the repository.
 
 ## License
+
 MIT
