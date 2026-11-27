@@ -6,11 +6,22 @@ import rateLimit from "express-rate-limit";
 import routes from "../routes/index.js";
 import errorHandler from "../middlewares/errorHandler.js";
 import logger from "../utils/logger.js";
+import { metricsMiddleware, register } from "../middlewares/metrics.middleware.js";
+
 
 const app = express();
 
 // Security headers
 app.use(helmet());
+
+// Metrics middleware
+app.use(metricsMiddleware);
+
+// Prometheus metrics endpoint
+app.get("/metrics", async (req, res) => {
+  res.set("Content-Type", register.contentType);
+  res.end(await register.metrics());
+});
 
 // CORS
 app.use(cors({
