@@ -710,3 +710,9 @@
 {"level":30,"time":1795778784436,"service":"medibook-core-service","env":"development","msg":"gRPC OCR client initialized"}
 {"level":30,"time":1795778784438,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
 {"level":30,"time":1795778801231,"service":"medibook-core-service","env":"development","msg":"::1 - - [27/Nov/2026:11:26:41 +0000] \"GET /favicon.ico HTTP/1.1\" 404 45 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36\""}
+{"level":30,"time":1795779085145,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1795779085149,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1795779085188,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1795779085255,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1795779085331,"service":"medibook-core-service","env":"development","msg":"gRPC OCR client initialized"}
+{"level":30,"time":1795779085335,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
