@@ -10,12 +10,15 @@ export const scanPrescription = asyncHandler(async (req, res) => {
   if (!result.success) throw new AppError(result.error || "OCR extraction failed", 500);
 
   // Wire to commerce service for each medicine
-  const medicineResults = await Promise.allSettled(
-    result.medicines.map(name =>
-      fetch(`${process.env.COMMERCE_SERVICE_URL}/api/medicines/search/ocr?text=${encodeURIComponent(name)}`)
-        .then(r => r.json())
-    )
-  );
+const medicineResults = await Promise.allSettled(
+  result.medicines.map(name =>
+    fetch(`${process.env.COMMERCE_SERVICE_URL}/api/medicines/search/ocr?text=${encodeURIComponent(name)}`, {
+      headers: {
+        'X-Correlation-ID': req.correlationId,
+      }
+    }).then(r => r.json())
+  )
+);
 
   const products = medicineResults
     .filter(r => r.status === "fulfilled")

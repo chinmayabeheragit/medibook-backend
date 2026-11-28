@@ -6,24 +6,26 @@ const logger = pino({
   transport:
     process.env.NODE_ENV !== "production"
       ? {
-        targets: [
-          {
-            target: "pino-pretty",
-            options: {
-              colorize: true,
-              translateTime: "SYS:standard",
-              ignore: "pid,hostname",
+          targets: [
+            {
+              target: "pino-pretty",
+              options: {
+                colorize: true,
+                translateTime: "SYS:standard",
+                ignore: "pid,hostname",
+              },
             },
-          },
-          {
-            target: "pino/file",
-            options: {
-              destination: join(process.cwd(), "logs", "core-service.log"),
-              mkdir: true,
+            {
+              target: "pino-roll",
+              options: {
+                file: join(process.cwd(), "logs", "core-service.log"),
+                frequency: "daily",
+                mkdir: true,
+                limit: { count: 30 }, // keep 30 days
+              },
             },
-          },
-        ],
-      }
+          ],
+        }
       : undefined,
   base: {
     service: "medibook-core-service",

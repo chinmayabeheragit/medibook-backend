@@ -1,19 +1,19 @@
 import express from "express";
 import cors from "cors";
-import morgan from "morgan";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import routes from "../routes/index.js";
 import errorHandler from "../middlewares/errorHandler.js";
 import logger from "../utils/logger.js";
 import { metricsMiddleware, register } from "../middlewares/metrics.middleware.js";
+import { correlationIdMiddleware } from "../middlewares/correlationId.middleware.js";
 
 
 const app = express();
 
 // Security headers
 app.use(helmet());
-
+app.use(correlationIdMiddleware);
 // Metrics middleware
 app.use(metricsMiddleware);
 
@@ -42,9 +42,21 @@ app.use("/api/admin/login",    authLimiter);
 app.use("/api/doctors/login",  authLimiter);
 
 // HTTP request logging
-app.use(morgan("combined", {
-  stream: { write: (msg) => logger.info(msg.trim()) },
-}));
+// Request logger middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    logger.info({
+      correlationId: req.correlationId,
+      method: req.method,
+      route: req.originalUrl,
+      statusCode: res.statusCode,
+      durationMs: Date.now() - start,
+      userAgent: req.headers['user-agent'],
+    }, 'HTTP Request');
+  });
+  next();
+});
 
 // Body parsing
 app.use(express.json());

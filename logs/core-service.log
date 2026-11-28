@@ -716,3 +716,22 @@
 {"level":30,"time":1795779085255,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
 {"level":30,"time":1795779085331,"service":"medibook-core-service","env":"development","msg":"gRPC OCR client initialized"}
 {"level":30,"time":1795779085335,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1795779150877,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1795779150880,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1795779150919,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1795779150982,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1795779151059,"service":"medibook-core-service","env":"development","msg":"gRPC OCR client initialized"}
+{"level":30,"time":1795779151063,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1795841137885,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1795841137887,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1795841137927,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1795841137988,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1795841138063,"service":"medibook-core-service","env":"development","msg":"gRPC OCR client initialized"}
+{"level":30,"time":1795841138068,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
+{"level":30,"time":1795841156443,"service":"medibook-core-service","env":"development","correlationId":"8f3790bf-bc6c-4979-93d7-a5991b708f12","method":"GET","route":"/health","statusCode":200,"durationMs":3,"userAgent":"PostmanRuntime/2.17.1","msg":"HTTP Request"}
+{"level":30,"time":1795843662250,"service":"medibook-core-service","env":"development","db":"medibook-core","msg":"[Core Service] MongoDB connected"}
+{"level":30,"time":1795843662251,"service":"medibook-core-service","env":"development","msg":"Cloudinary configured"}
+{"level":30,"time":1795843662266,"service":"medibook-core-service","env":"development","msg":"RabbitMQ connected — exchange: medibook"}
+{"level":30,"time":1795843662337,"service":"medibook-core-service","env":"development","msg":"Redis connected"}
+{"level":30,"time":1795843662413,"service":"medibook-core-service","env":"development","msg":"gRPC OCR client initialized"}
+{"level":30,"time":1795843662415,"service":"medibook-core-service","env":"development","msg":"[Core Service] Running on PORT: 5002"}
