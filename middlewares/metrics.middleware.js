@@ -15,10 +15,10 @@ const httpRequestDuration = new client.Histogram({
   registers: [register],
 });
 
-const httpRequestTotal = new client.Counter({
-  name: 'http_requests_total',
-  help: 'Total number of HTTP requests',
-  labelNames: ['method', 'route', 'status_code'],
+const httpErrorsTotal = new client.Counter({
+  name: 'http_errors_total',
+  help: 'Total number of HTTP errors (4xx and 5xx)',
+  labelNames: ['method', 'route', 'status_code', 'error_type'],
   registers: [register],
 });
 
@@ -35,11 +35,14 @@ export const metricsMiddleware = (req, res, next) => {
       duration
     );
 
-    httpRequestTotal.inc({
-      method: req.method,
-      route,
-      status_code: res.statusCode,
-    });
+   if (res.statusCode >= 400) {
+  httpErrorsTotal.inc({
+    method: req.method,
+    route,
+    status_code: res.statusCode,
+    error_type: res.statusCode >= 500 ? '5xx' : '4xx',
+  });
+}
   });
 
   next();
